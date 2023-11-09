@@ -1,4 +1,4 @@
-package backendexamenesservice.backendexamenesservice;
+package tingeso_mingeso.backendexamenesservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

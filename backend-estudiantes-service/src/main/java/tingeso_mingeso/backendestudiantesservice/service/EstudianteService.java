@@ -1,11 +1,16 @@
 package tingeso_mingeso.backendestudiantesservice.service;
 
 
-import com.example.TOP_EDUCATION.entities.CuotaEntity;
-import com.example.TOP_EDUCATION.entities.EstudianteEntity;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.example.TOP_EDUCATION.repositories.EstudianteRepository;
+import org.springframework.web.client.RestTemplate;
+import tingeso_mingeso.backendestudiantesservice.entity.EstudianteEntity;
+import tingeso_mingeso.backendestudiantesservice.repository.EstudianteRepository;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +28,22 @@ public class EstudianteService {
     @Autowired
     CuotaService cuotaService;
 
+    @Autowired
+    RestTemplate restTemplate;
+
+    //ESTÁ MAL:   REVISAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    public EstudianteEntity findByRut(String rut){
+        System.out.println("rut: "+rut);
+
+        ResponseEntity<EstudianteEntity> response = restTemplate.exchange(
+                "http://localhost:8080/estudiante/"+rut,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<EstudianteEntity>() {}
+        );
+        return response.getBody();
+    }
 
     public ArrayList<EstudianteEntity> obtenerEstudiantes(){
         return estudianteRepository.findAllStudents();
