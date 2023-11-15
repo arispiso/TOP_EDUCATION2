@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import tingeso_mingeso.backendexamenesservice.entity.ExamenEntity;
-import tingeso_mingeso.backendexamenesservice.model.CuotaEntity;
+import tingeso_mingeso.backendexamenesservice.model.CuotaModel;
 import tingeso_mingeso.backendexamenesservice.repository.ExamenRepository;
 
 import java.io.BufferedReader;
@@ -29,8 +29,8 @@ public class ExamenService {
     @Autowired
     ExamenRepository examenRepository;
 
-    @Autowired
-    CuotaService cuotaService;
+    //@Autowired
+    //CuotaService cuotaService;
 
     @Autowired
     RestTemplate restTemplate;
@@ -38,18 +38,20 @@ public class ExamenService {
     private final Logger logg = LoggerFactory.getLogger(ExamenService.class);
 
 
-    //ESTÁ MAL:   REVISAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    public CuotaEntity findByRut(String rut){
+   /*
+    public CuotaModel findByRut(String rut){
         System.out.println("rut: "+rut);
 
-        ResponseEntity<CuotaEntity> response = restTemplate.exchange(
+        ResponseEntity<CuotaModel> response = restTemplate.exchange(
                 "http://localhost:8080/estudiante/"+rut,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<CuotaEntity>() {}
+                new ParameterizedTypeReference<CuotaModel>() {}
         );
         return response.getBody();
     }
+    */
+
 
 
     public ArrayList<ExamenEntity> obtenerExamenes(){
@@ -64,7 +66,7 @@ public class ExamenService {
     }
     public void guardarExamen(ExamenEntity examen){
         examenRepository.save(examen);
-        cuotaService.descuentoPorExamenAdmision(examen.getPuntaje());
+        //cuotaService.descuentoPorExamenAdmision(examen.getPuntaje());
     }
 
     public void guardarExamenBD(int puntaje, String fecha_examen, String rut_estudiante){
@@ -73,7 +75,7 @@ public class ExamenService {
         examen.setFecha_examen(fecha_examen);
         examen.setRut_estudiante(rut_estudiante);
         guardarExamen(examen);
-        cuotaService.descuentoPorExamenAdmision(puntaje);
+        //cuotaService.descuentoPorExamenAdmision(puntaje);
     }
 
     public void eliminarExamen(ExamenEntity examen){

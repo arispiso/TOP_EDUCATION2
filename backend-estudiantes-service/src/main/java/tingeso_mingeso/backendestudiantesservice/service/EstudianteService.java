@@ -4,17 +4,16 @@ package tingeso_mingeso.backendestudiantesservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tingeso_mingeso.backendestudiantesservice.entity.EstudianteEntity;
+import tingeso_mingeso.backendestudiantesservice.model.CuotaModel;
 import tingeso_mingeso.backendestudiantesservice.repository.EstudianteRepository;
 
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class EstudianteService {
@@ -25,25 +24,11 @@ public class EstudianteService {
     @Autowired
     AdministradorPagos administradorPagos;
 
-    @Autowired
-    CuotaService cuotaService;
+    //@Autowired
+    //CuotaService cuotaService;
 
     @Autowired
     RestTemplate restTemplate;
-
-    //ESTÁ MAL:   REVISAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    public EstudianteEntity findByRut(String rut){
-        System.out.println("rut: "+rut);
-
-        ResponseEntity<EstudianteEntity> response = restTemplate.exchange(
-                "http://localhost:8080/estudiante/"+rut,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<EstudianteEntity>() {}
-        );
-        return response.getBody();
-    }
 
     public ArrayList<EstudianteEntity> obtenerEstudiantes(){
         return estudianteRepository.findAllStudents();
@@ -75,6 +60,24 @@ public class EstudianteService {
         return e.getAnyo_Egreso();
     }
 
+    /*
+
+       public CuotaModel findCuotaByRut(String rut){
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> request = new HttpEntity<>(rut, headers);
+
+        ResponseEntity<CuotaModel> response = restTemplate.exchange(
+                "http://localhost:8080/cuotas",
+                HttpMethod.POST,
+                request,
+                new ParameterizedTypeReference<CuotaModel>() {}
+        );
+        return response.getBody();
+    }
+
     public void generarCuota(EstudianteEntity e){
 
         String rut = e.getRut();
@@ -95,9 +98,9 @@ public class EstudianteService {
         }
 
         for (int i = 1; i<= numCuotas; i++) {
-            cuotaService.guardarCuota(new CuotaEntity(i,"Pendiente", valor/numCuotas, numCuotas, rut,fecha));
+            cuotaService.guardarCuota(new CuotaModel(i,"Pendiente", valor/numCuotas, numCuotas, rut,fecha));
         }
 
     }
-
+*/
 }

@@ -1,10 +1,11 @@
 package tingeso_mingeso.backendexamenesservice.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
+
 
 @Entity
 @Table(name = "examenes")
@@ -14,7 +15,6 @@ import org.antlr.v4.runtime.misc.NotNull;
 
 public class ExamenEntity {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 

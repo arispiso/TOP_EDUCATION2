@@ -4,12 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Date;
 @Data //getters y setters de lombok
 @NoArgsConstructor
 @AllArgsConstructor //constructor con y sin parametros de lombok
-public class EstudianteEntity {
+public class EstudianteModel {
     private String rut;
     private String nombre;
     private String apellidos;

@@ -1,6 +1,4 @@
 package tingeso_mingeso.backendestudiantesservice.repository;
-
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,10 +7,8 @@ import tingeso_mingeso.backendestudiantesservice.entity.EstudianteEntity;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 @Repository
 public interface EstudianteRepository extends JpaRepository<EstudianteEntity,Long> {
-
     public EstudianteEntity findByRut(String rut);
 
     //dos maneras diferentes de hacer una consulta a nuestra BD,
@@ -27,5 +23,4 @@ public interface EstudianteRepository extends JpaRepository<EstudianteEntity,Lon
     @Query(value ="select * from estudiantes",
             nativeQuery = true)
     ArrayList<EstudianteEntity> findAllStudents();
-
 }

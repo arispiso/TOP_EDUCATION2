@@ -6,7 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tingeso_mingeso.backendcuotasservice.entity.CuotaEntity;
-import tingeso_mingeso.backendcuotasservice.model.EstudianteEntity;
+import tingeso_mingeso.backendcuotasservice.model.EstudianteModel;
 import tingeso_mingeso.backendcuotasservice.repository.CuotaRepository;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,16 +21,19 @@ public class CuotaService {
     CuotaRepository cuotaRepository;
 
     @Autowired
+    AdministradorPagos administradorPagos;
+
+    @Autowired
     RestTemplate restTemplate;
 
-    public EstudianteEntity findByRut(String rut){
+    public EstudianteModel findByRut(String rut){
         System.out.println("rut: "+rut);
 
-        ResponseEntity<EstudianteEntity> response = restTemplate.exchange(
-                "http://localhost:8080/estudiante/"+rut,
+        ResponseEntity<EstudianteModel> response = restTemplate.exchange(
+                "http://localhost:8081/estudiante/"+rut,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<EstudianteEntity>() {}
+                new ParameterizedTypeReference<EstudianteModel>() {}
         );
         return response.getBody();
     }
@@ -176,5 +179,30 @@ public class CuotaService {
                 guardarCuota(c);
             }
         }
+    }
+
+    public void generarCuota(EstudianteModel e){
+
+        String rut = e.getRut();
+        int numCuotas = e.getNum_cuotas();
+        String tipoColegio = e.getColegio_procedente();
+        int anyo = e.getAnyo_Egreso();
+
+        LocalDate fechaActual = LocalDate.now();
+        String fecha = fechaActual.toString();
+
+        double valor = 0;
+
+        if (numCuotas == 1){
+            valor = administradorPagos.descuentoPorPagoAlContado();
+        }
+        else {
+            valor = administradorPagos.descuentoTotal(tipoColegio,anyo);
+        }
+
+        for (int i = 1; i<= numCuotas; i++) {
+            guardarCuota(new CuotaEntity(i,"Pendiente", valor/numCuotas, numCuotas, rut,fecha));
+        }
+
     }
 }

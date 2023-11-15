@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CuotaEntity {
-
+public class CuotaModel {
+    private int id;
     private String estado;
     private double valor;
     private int cantidad_cuotas;
     private String rutEstudiante;
     private String fecha_cuota;
-
 }

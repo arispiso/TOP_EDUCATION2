@@ -10,7 +10,7 @@ import tingeso_mingeso.backendexamenesservice.service.ExamenService;
 
 import java.util.ArrayList;
 @RestController
-@RequestMapping
+@RequestMapping("/examen")
 public class ExamenController {
 
     @Autowired

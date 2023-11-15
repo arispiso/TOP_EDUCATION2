@@ -1,9 +1,6 @@
 package tingeso_mingeso.backendcuotasservice.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +21,4 @@ public class CuotaEntity {
     private int cantidad_cuotas;
     private String rutEstudiante;
     private String fecha_cuota;
-
 }
